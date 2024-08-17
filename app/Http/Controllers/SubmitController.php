@@ -17,5 +17,9 @@ class SubmitController extends Controller
             $request->validated('email'),
             $request->validated('message'),
         );
+
+        return response()->json([
+            'message' => 'Thanks for your submission!',
+        ]);
     }
 }
