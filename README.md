@@ -37,3 +37,4 @@ curl --request POST \
   }'
 ```
 > For convenience, you can use one of the popular API clients like Postman or Insomnia.
+3. You can run PHP Unit tests by running `sail art test`
