@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\SubmissionSaved;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\DB;
@@ -25,12 +26,19 @@ class ProcessSubmit implements ShouldQueue
      */
     public function handle(): void
     {
-        DB::table('submissions')->insert([
+        $submissionSaved = DB::table('submissions')->insert([
             'name' => $this->name,
             'email' => $this->email,
             'message' => $this->message,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        if ($submissionSaved) {
+            SubmissionSaved::dispatch(
+                $this->name,
+                $this->email,
+            );
+        }
     }
 }
